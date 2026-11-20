@@ -144,7 +144,7 @@ func (r *Resolver) resolveJobWorkload(namespace, jobName string) Identity {
 }
 
 func (r *Resolver) deploymentExists(namespace, name string) bool {
-	_, err := r.deploymentLister.Deployments(namespace).Get(name)
+	d, err := r.deploymentLister.Deployments(namespace).Get(name)
 	if err != nil {
 		if k8serrors.IsNotFound(err) {
 			return false
@@ -156,11 +156,11 @@ func (r *Resolver) deploymentExists(namespace, name string) bool {
 		)
 		return true
 	}
-	return true
+	return d.DeletionTimestamp == nil
 }
 
 func (r *Resolver) jobExists(namespace, name string) bool {
-	_, err := r.jobLister.Jobs(namespace).Get(name)
+	j, err := r.jobLister.Jobs(namespace).Get(name)
 	if err != nil {
 		if k8serrors.IsNotFound(err) {
 			return false
@@ -172,11 +172,11 @@ func (r *Resolver) jobExists(namespace, name string) bool {
 		)
 		return true
 	}
-	return true
+	return j.DeletionTimestamp == nil
 }
 
 func (r *Resolver) daemonSetExists(namespace, name string) bool {
-	_, err := r.daemonSetLister.DaemonSets(namespace).Get(name)
+	ds, err := r.daemonSetLister.DaemonSets(namespace).Get(name)
 	if err != nil {
 		if k8serrors.IsNotFound(err) {
 			return false
@@ -188,11 +188,11 @@ func (r *Resolver) daemonSetExists(namespace, name string) bool {
 		)
 		return true
 	}
-	return true
+	return ds.DeletionTimestamp == nil
 }
 
 func (r *Resolver) statefulSetExists(namespace, name string) bool {
-	_, err := r.statefulSetLister.StatefulSets(namespace).Get(name)
+	ss, err := r.statefulSetLister.StatefulSets(namespace).Get(name)
 	if err != nil {
 		if k8serrors.IsNotFound(err) {
 			return false
@@ -204,11 +204,11 @@ func (r *Resolver) statefulSetExists(namespace, name string) bool {
 		)
 		return true
 	}
-	return true
+	return ss.DeletionTimestamp == nil
 }
 
 func (r *Resolver) cronJobExists(namespace, name string) bool {
-	_, err := r.cronJobLister.CronJobs(namespace).Get(name)
+	cj, err := r.cronJobLister.CronJobs(namespace).Get(name)
 	if err != nil {
 		if k8serrors.IsNotFound(err) {
 			return false
@@ -220,7 +220,7 @@ func (r *Resolver) cronJobExists(namespace, name string) bool {
 		)
 		return true
 	}
-	return true
+	return cj.DeletionTimestamp == nil
 }
 
 // HasSupportedOwner returns true if the pod is owned by a supported
