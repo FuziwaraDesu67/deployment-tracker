@@ -57,20 +57,21 @@ Two modes of authentication are supported:
 
 ## Environment Variables
 
-| Variable               | Description                                | Default                                              |
-|------------------------|--------------------------------------------|------------------------------------------------------|
-| `LOG_LEVEL`            | log level: DEBUG, INFO, WARN, ERROR        | `INFO`                                               |
-| `ORG`                  | GitHub organization name                   | (required)                                           |
-| `BASE_URL`             | API base URL                               | `api.github.com`                                     |
-| `DN_TEMPLATE`          | Deployment name template                   | `{{namespace}}/{{deploymentName}}/{{containerName}}` |
-| `LOGICAL_ENVIRONMENT`  | Logical environment name                   | (required)                                           |
-| `PHYSICAL_ENVIRONMENT` | Physical environment name                  | `""`                                                 |
-| `CLUSTER`              | Cluster name                               | (required)                                           |
-| `BULK_CLUSTER_SYNC`    | Bulk-sync cluster state at startup         | `true`                                               |
-| `API_TOKEN`            | API authentication token                   | `""`                                                 |
-| `GH_APP_ID`            | GitHub App ID                              | `""`                                                 |
-| `GH_INSTALL_ID`        | GitHub App installation ID                 | `""`                                                 |
-| `GH_APP_PRIV_KEY`      | Path to the private key for the GitHub app | `""`                                                 |
+| Variable                                       | Description                                                          | Default                                              |
+|------------------------------------------------|----------------------------------------------------------------------|------------------------------------------------------|
+| `LOG_LEVEL`                                    | log level: DEBUG, INFO, WARN, ERROR                                  | `INFO`                                               |
+| `ORG` or `GITHUB_ORG`                          | GitHub organization name                                             | (required)                                           |
+| `BASE_URL`                                     | API base URL                                                         | `api.github.com`                                     |
+| `DN_TEMPLATE`                                  | Deployment name template                                             | `{{namespace}}/{{deploymentName}}/{{containerName}}` |
+| `LOGICAL_ENVIRONMENT`                          | Logical environment name                                             | (required)                                           |
+| `PHYSICAL_ENVIRONMENT`                         | Physical environment name                                            | `""`                                                 |
+| `CLUSTER`                                      | Cluster name                                                         | (required)                                           |
+| `BULK_CLUSTER_SYNC`                            | Bulk-sync cluster state at startup                                   | `true`                                               |
+| `API_TOKEN`                                    | API authentication token                                             | `""`                                                 |
+| `GH_APP_ID`                                    | GitHub App ID                                                        | `""`                                                 |
+| `GH_INSTALL_ID`                                | GitHub App installation ID                                           | `""`                                                 |
+| `GH_APP_PRIV_KEY` or `GH_APP_PRIV_KEY_PATH`    | Path to the private key for the GitHub app                           | `""`                                                 |
+| `GH_APP_PRIVATE_KEY`                           | Base64-encoded private key for the GitHub app                        | `""`                                                 |
 
 ### Template Variables
 

@@ -84,6 +84,16 @@ func main() {
 		}
 	}
 
+	org := os.Getenv("GITHUB_ORG")
+	if org == "" {
+		org = os.Getenv("ORG")
+	}
+
+	appKeyPath := getEnvOrDefault("GH_APP_PRIV_KEY_PATH", "")
+	if appKeyPath == "" {
+		appKeyPath = getEnvOrDefault("GH_APP_PRIV_KEY", "")
+	}
+
 	var cntrlCfg = controller.Config{
 		Template:            getEnvOrDefault("DN_TEMPLATE", defaultTemplate),
 		LogicalEnvironment:  os.Getenv("LOGICAL_ENVIRONMENT"),
@@ -94,13 +104,13 @@ func main() {
 		GHAppID:             getEnvOrDefault("GH_APP_ID", ""),
 		GHInstallID:         getEnvOrDefault("GH_INSTALL_ID", ""),
 		GHAppPrivateKey:     ghAppPrivateKey,
-		GHAppPrivateKeyPath: getEnvOrDefault("GH_APP_PRIV_KEY_PATH", ""),
-		Organization:        os.Getenv("GITHUB_ORG"),
+		GHAppPrivateKeyPath: appKeyPath,
+		Organization:        org,
 		BulkClusterSync:     strings.EqualFold(getEnvOrDefault("BULK_CLUSTER_SYNC", "true"), "true"),
 	}
 
 	if len(cntrlCfg.GHAppPrivateKey) > 0 && cntrlCfg.GHAppPrivateKeyPath != "" {
-		slog.Error("Both GH_APP_PRIVATE_KEY and GH_APP_PRIV_KEY_PATH are set. Only one can be used.")
+		slog.Error("Both GH_APP_PRIVATE_KEY and GH_APP_PRIV_KEY_PATH (or GH_APP_PRIV_KEY) are set. Only one can be used.")
 		os.Exit(1)
 	}
 
